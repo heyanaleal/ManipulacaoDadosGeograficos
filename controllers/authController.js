@@ -1,20 +1,22 @@
-const AuthRequest = require('../models/authModel');
+// controllers/authController.js
+const AuthModel = require('../models/auth');
 
-const authenticate = (req, res) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).json('Formato da requisição inválido!');
+class AuthController {
+  constructor() {
+    this.authModel = new AuthModel();
   }
 
-  // Verificar se as credenciais são válidas
-  if (email === 'admin@exemplo.com.br' && password === 'abcd1234') {
-    return res.status(200).json('Autenticado com sucesso!');
-  } else {
-    return res.status(401).json('Falha ao autenticar!');
-  }
-};
+  authenticate(req, res) {
+    const { email, password } = req.body;
 
-module.exports = {
-  authenticate,
-};
+    const isAuthenticated = this.authModel.authenticate(email, password);
+
+    if (isAuthenticated) {
+      res.status(200).json({ message: 'Autenticado com sucesso!' });
+    } else {
+      res.status(401).json({ message: 'Falha ao autenticar!' });
+    }
+  }
+}
+
+module.exports = AuthController;
