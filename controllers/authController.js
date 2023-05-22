@@ -1,4 +1,3 @@
-// controllers/authController.js
 const AuthModel = require('../models/auth');
 
 class AuthController {
