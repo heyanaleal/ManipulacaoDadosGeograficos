@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+// lista de places
 const places = [
   {
     id: 1,
@@ -39,6 +40,7 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
   return Math.sqrt(x ** 2 + y ** 2);
 };
 
+//calcular distancia 
 router.get('/places/:id1/distancia/:id2', (req, res) => {
   const id1 = Number(req.params.id1);
   const id2 = Number(req.params.id2);

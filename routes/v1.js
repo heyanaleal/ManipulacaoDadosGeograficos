@@ -4,6 +4,7 @@ const AuthController = require('../controllers/authController');
 
 const authController = new AuthController();
 
+//mensagem boas vindas
 router.get('/', (req, res) => {
   res.status(200).json({ message: 'Bem vindo a API GeoPoly!' });
 });
