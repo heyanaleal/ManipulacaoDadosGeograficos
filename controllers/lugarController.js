@@ -63,10 +63,51 @@ const removerLugar = async (req, res) => {
   }
 };
 
+// Verificar se um lugar está dentro de uma área
+const verificarLugarEmArea = async (req, res) => {
+  const { idLugar, idArea } = req.params;
+  try {
+    const { rows } = await pool.query(
+      `SELECT l.id, l.nome, ST_AsGeoJSON(l.ponto)::json as ponto
+       FROM lugares l
+       JOIN areas a ON ST_Within(l.ponto, a.poligono)
+       WHERE l.id = $1 AND a.id = $2`,
+      [idLugar, idArea]
+    );
+
+    if (rows.length === 0) {
+      res.json({ isInsideArea: false });
+    } else {
+      res.json({ isInsideArea: true });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao verificar se um lugar está dentro de uma área.' });
+  }
+};
+
+// Listar lugares dentro de uma área
+const listarLugaresEmArea = async (req, res) => {
+  const { idArea } = req.params;
+  try {
+    const { rows } = await pool.query(
+      `SELECT l.id, l.nome, ST_AsGeoJSON(l.ponto)::json as ponto
+       FROM lugares l
+       JOIN areas a ON ST_Within(l.ponto, a.poligono)
+       WHERE a.id = $1`,
+      [idArea]
+    );
+    res.json({ success: true, lugares: rows });
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao listar lugares dentro de uma área.' });
+  }
+};
+
 module.exports = {
   listarLugar,
   criarLugar,
   visualizarLugar,
   atualizarLugar,
   removerLugar,
+  verificarLugarEmArea,
+  listarLugaresEmArea,
 };
