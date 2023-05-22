@@ -164,6 +164,189 @@
 ]</code></pre>
     </li>
   </ol>
+  <h2>Quinta Parte</h2>
+<ol start="5">
+  <li>
+    <h3>GET /lugares</h3>
+    <p>Retorna a lista de lugares.</p>
+    <p>URL para teste: http://localhost:3000/lugares</p>
+    <pre><code>[
+{
+    "id":1,
+    "nome": "Central Park",
+    "ponto": {
+      "type": "Point",
+      "coordinates": [-73.965355, 40.782865]
+    }
+  },
+  {
+    "id": 2,
+    "nome": "Disney",
+    "ponto": {
+      "type": "Point",
+      "coordinates": [-81.536072, 28.385233]
+    }
+  }
+  
+]</code></pre>
+  </li>
+  <li>
+    <h3>POST /lugares</h3>
+    <p>Cria um novo lugar.</p>
+    <p>URL para teste: http://localhost:3000/lugares</p>
+    <p>Exemplo de requisição:</p>
+    <pre><code>{
+  "nome": "Estátua da Liberdade",
+  "ponto": {
+    "type": "Point",
+    "coordinates": [-74.044444, 40.689167]
+  }
+}
+</code></pre>
+    <p>Resposta (201 Created) em caso de sucesso.</p>
+    <p>Resposta (500 Internal Server Error) em caso de erro.</p>
+  </li>
+  <li>
+    <h3>GET /lugares/{id}</h3>
+    <p>Retorna os detalhes de um lugar específico.</p>
+    <p>URL para teste: http://localhost:3000/lugares/{id}</p>
+    <pre><code>{
+    "id":1,
+    "nome": "Central Park",
+    "ponto": {
+      "type": "Point",
+      "coordinates": [-73.965355, 40.782865]
+    }
+  },
+}</code></pre>
+    <p>Resposta (404 Not Found) caso o lugar não seja encontrado.</p>
+  </li>
+  <li>
+    <h3>PUT /lugares/{id}</h3>
+    <p>Atualiza as informações de um lugar específico.</p>
+    <p>URL para teste: http://localhost:3000/lugares/{id}</p>
+    <p>Exemplo de requisição:</p>
+    <pre><code>{
+  "nome": "Lugar Atualizado",
+  "ponto": {
+    "type": "Point",
+    "coordinates": [longitude, latitude]
+  }
+}</code></pre>
+    <p>Resposta (200 OK) em caso de sucesso.</p>
+    <p>Resposta (500 Internal Server Error) em caso de erro.</p>
+  </li>
+  <li>
+    <h3>DELETE /lugares/{id}</h3>
+    <p>Remove um lugar específico.</p>
+    <p>URL para teste: http://localhost:3000/v1/lugares/{id}</p>
+    <p>Resposta (200 OK) em caso de sucesso.</p>
+    <p>Resposta (500 Internal Server Error) em caso de erro.</p>
+  </li>
+</ol>
+ <h3>GET /areas</h3>
+    <p>Retorna a lista de áreas.</p>
+    <p>URL para teste: http://localhost:3000/areas</p>
+    <pre><code>[
+  {
+    "id": 1,
+    "nome": "Central Park",
+    "poligono": {
+      "type": "Polygon",
+      "coordinates": [[
+        [-73.968285, 40.785091],
+        [-73.958819, 40.785091],
+        [-73.958819, 40.791899],
+        [-73.968285, 40.791899],
+        [-73.968285, 40.785091]
+      ]]
+    }
+  },
+  {
+    "id": 2,
+    "nome": "Parque Ibirapuera",
+    "poligono": {
+      "type": "Polygon",
+      "coordinates": [[
+        [-46.661525, -23.587808],
+        [-46.657938, -23.583662],
+        [-46.648642, -23.584538],
+        [-46.649697, -23.591582],
+        [-46.661525, -23.587808]
+      ]]
+    }
+  },
+]</code></pre>
+  </li>
+  <li>
+    <h3>POST /areas</h3>
+    <p>Cria uma nova área.</p>
+    <p>URL para teste: http://localhost:3000/areas</p>
+    <p>Exemplo de requisição:</p>
+    <pre><code>{
+  "nome": "Times Square",
+  "poligono": {
+    "type": "Polygon",
+    "coordinates": [[
+      [-73.9857, 40.7589],
+      [-73.9857, 40.7598],
+      [-73.9866, 40.7598],
+      [-73.9866, 40.7589],
+      [-73.9857, 40.7589]
+    ]]
+  }
+}</code></pre>
+    <p>Resposta (201 Created) em caso de sucesso.</p>
+    <p>Resposta (500 Internal Server Error) em caso de erro.</p>
+  </li>
+  <li>
+    <h3>GET /areas/{id}</h3>
+    <p>Retorna os detalhes de uma área específica.</p>
+    <p>URL para teste: http://localhost:3000/areas/{id}</p>
+    <pre><code>{
+    "id": 1,
+    "nome": "Central Park",
+    "poligono": {
+      "type": "Polygon",
+      "coordinates": [[
+        [-73.968285, 40.785091],
+        [-73.958819, 40.785091],
+        [-73.958819, 40.791899],
+        [-73.968285, 40.791899],
+        [-73.968285, 40.785091]
+      ]]
+    }
+  },
+}</code></pre>
+    <p>Resposta (404 Not Found) caso a área não seja encontrada.</p>
+  </li>
+  <li>
+    <h3>PUT /areas/{id}</h3>
+    <p>Atualiza as informações de uma área específica.</p>
+    <p>URL para teste: http://localhost:3000/areas/{id}</p>
+    <p>Exemplo de requisição:</p>
+    <pre><code>{
+  "nome": "Área Atualizada",
+  "poligono": {
+    "type": "Polygon",
+    "coordinates": [[
+      [longitude1, latitude1],
+      [longitude2, latitude2],
+      ...
+    ]]
+  }
+}</code></pre>
+    <p>Resposta (200 OK) em caso de sucesso.</p>
+    <p>Resposta (500 Internal Server Error) em caso de erro.</p>
+  </li>
+  <li>
+    <h3>DELETE /areas/{id}</h3>
+    <p>Remove uma área específica.</p>
+    <p>URL para teste: http://localhost:3000/areas/{id}</p>
+    <p>Resposta (200 OK) em caso de sucesso.</p>
+    <p>Resposta (500 Internal Server Error) em caso de erro.</p>
+  </li>
+</ol>
 </body>
   <h2>Instalação</h2>
   <p>Siga as etapas abaixo para configurar e executar o projeto localmente:</p>
