@@ -164,8 +164,9 @@
 ]</code></pre>
     </li>
   </ol>
+
   <h2>Quinta Parte</h2>
-<ol start="5">
+<ol start="10">
   <li>
     <h3>GET /lugares</h3>
     <p>Retorna a lista de lugares.</p>
@@ -243,8 +244,9 @@
     <p>Resposta (200 OK) em caso de sucesso.</p>
     <p>Resposta (500 Internal Server Error) em caso de erro.</p>
   </li>
-</ol>
- <h3>GET /areas</h3>
+
+  <li>  
+  <h3>GET /areas</h3>
     <p>Retorna a lista de áreas.</p>
     <p>URL para teste: http://localhost:3000/areas</p>
     <pre><code>[
@@ -278,6 +280,7 @@
   },
 ]</code></pre>
   </li>
+  
   <li>
     <h3>POST /areas</h3>
     <p>Cria uma nova área.</p>
@@ -299,6 +302,7 @@
     <p>Resposta (201 Created) em caso de sucesso.</p>
     <p>Resposta (500 Internal Server Error) em caso de erro.</p>
   </li>
+
   <li>
     <h3>GET /areas/{id}</h3>
     <p>Retorna os detalhes de uma área específica.</p>
@@ -320,6 +324,7 @@
 }</code></pre>
     <p>Resposta (404 Not Found) caso a área não seja encontrada.</p>
   </li>
+  
   <li>
     <h3>PUT /areas/{id}</h3>
     <p>Atualiza as informações de uma área específica.</p>
@@ -339,6 +344,7 @@
     <p>Resposta (200 OK) em caso de sucesso.</p>
     <p>Resposta (500 Internal Server Error) em caso de erro.</p>
   </li>
+ 
   <li>
     <h3>DELETE /areas/{id}</h3>
     <p>Remove uma área específica.</p>
@@ -346,23 +352,142 @@
     <p>Resposta (200 OK) em caso de sucesso.</p>
     <p>Resposta (500 Internal Server Error) em caso de erro.</p>
   </li>
+  
 </ol>
-</body>
-  <h2>Instalação</h2>
+
+
+
+<h2>Verificar se um lugar está dentro de uma área</h2>
+<ol start="20">
+  <li>
+    <h3>GET /lugares/:lugarId/areas/:areaId</h3>
+  </li>
+  <p>Verifica se um lugar específico está dentro de uma área específica.</p>
+  <p>URL para teste: http://localhost:3000/lugares/{lugarId}/areas/{areaId}</p>
+  <h4>Parâmetros de URL</h4>
+  <ul>
+    <li><strong>:lugarId</strong> (obrigatório): ID do lugar que será verificado.</li>
+    <li><strong>:areaId</strong> (obrigatório): ID da área em que será verificado se o lugar está dentro.</li>
+  </ul>
+  <h4>Respostas</h4>
+  <ul>
+    <li>
+      <strong>200 OK:</strong> O lugar está dentro da área.
+      <pre>
+{
+  "isInsideArea": true
+}
+      </pre>
+    </li>
+    <li>
+      <strong>200 OK:</strong> O lugar não está dentro da área.
+      <pre>
+{
+  "isInsideArea": false
+}
+      </pre>
+    </li>
+    <li>
+      <strong>500 Internal Server Error:</strong> Erro ao verificar se um lugar está dentro de uma área.
+      <pre>
+{
+  "error": "Erro ao verificar se um lugar está dentro de uma área."
+}
+      </pre>
+    </li>
+  </ul>
+  <h2>Listar lugares dentro de uma área</h2>
+  <li>
+    <h3>GET /lugares/areas/:areaId</h3>
+  </li>
+  <p>Lista os lugares dentro de uma área específica.</p>
+  <p>URL para teste: http://localhost:3000/lugares/areas/{id}/lugares</p>
+  <h4>Parâmetros de URL</h4>
+  <ul>
+    <li><strong>:areaId</strong> (obrigatório): ID da área da qual serão listados os lugares.</li>
+  </ul>
+  <h4>Respostas</h4>
+  <ul>
+    <li>
+      <strong>200 OK:</strong> Lista de lugares dentro da área.
+      <pre>
+{
+  "success": true,
+  "lugares": [
+    {
+      "id": 1,
+      "nome": "Lugar 1",
+      "ponto": {
+        "type": "Point",
+        "coordinates": [longitude, latitude]
+      }
+    },
+    {
+      "id": 2,
+      "nome": "Lugar 2",
+      "ponto": {
+        "type": "Point",
+        "coordinates": [longitude, latitude]
+      }
+    }
+  ]
+}
+      </pre>
+    </li>
+    <li>
+      <strong>500 Internal Server Error:</strong> Erro ao listar lugares dentro de uma área.
+      <pre>
+{
+  "error": "Erro ao listar lugares dentro de uma área."
+}
+      </pre>
+    </li>
+  </ul>
+</ol>
+<h2>Instalação</h2>
+
+<ol>
+  <p>Requisitos:</p>
+  - <code>PostgreSQL</code><br>
+  - <code>Node</code><br>
+  - <code>Extensão - PostGIS</code><br>
+</ol>
+
+<ol>
+  <p>Script para criação das tabelas do banco:</p>
+  <p>DataBase - spotsat<p>
+  <pre>
+    CREATE TABLE lugares (
+      id SERIAL PRIMARY KEY,
+      nome VARCHAR(100) NOT NULL,
+      ponto GEOMETRY(Point, 4326) NOT NULL
+    );
+    CREATE TABLE areas (
+      id SERIAL PRIMARY KEY,
+      nome VARCHAR(100) NOT NULL,
+      poligono GEOMETRY(Polygon, 4326) NOT NULL
+    );
+  </pre> 
+
+
+
+</ol>
+
+
+<ol>
   <p>Siga as etapas abaixo para configurar e executar o projeto localmente:</p>
-  
-  <ol>
-    <li>Clone o repositório do projeto:</li>
-    <code>git clone  https://github.com/heyanaleal/SpotSat.git</code>
-    <li>Navegue até o diretório do projeto:</li>
-    <code>cd SpotSat</code>
-    <li>Instale as dependências do projeto:</li>
-    <code>npm install</code>
-  </ol>
-  
-  <h2>Uso</h2>
-  
+  <li>Clone o repositório do projeto:</li>
+  <code>git clone https://github.com/heyanaleal/SpotSat.git</code>
+  <li>Navegue até o diretório do projeto:</li>
+  <code>cd SpotSat</code>
+  <li>Instale as dependências do projeto:</li>
+  <code>npm install</code>
+</ol>
+<h2>Uso</h2>
+<ol>
   <p>Execute o projeto usando o seguinte comando:</p>
-  
   <code>npm start</code>
+</ol>
+
+</body>
 </html>
