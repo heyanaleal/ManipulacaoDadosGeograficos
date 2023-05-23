@@ -17,12 +17,6 @@ router.put('/:id', lugarController.atualizarLugar);
 // Remover lugar
 router.delete('/:id', lugarController.removerLugar);
 
-// Pesquisar lugares em um círculo
-router.get('/circulo', lugarController.pesquisarLugaresEmCirculo);
-
-// Calcular distância entre dois lugares
-router.get('/distancia', lugarController.calcularDistanciaEntreLugares);
-
 // Verificar se um lugar está dentro de uma área
 router.get('/:lugarId/areas/:areaId', lugarController.verificarLugarEmArea);
 
